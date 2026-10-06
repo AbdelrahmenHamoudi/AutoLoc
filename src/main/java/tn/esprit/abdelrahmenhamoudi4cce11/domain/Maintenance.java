@@ -1,10 +1,8 @@
 package tn.esprit.abdelrahmenhamoudi4cce11.domain;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
+import lombok.experimental.FieldDefaults;
 
 import java.time.LocalDate;
 
@@ -14,17 +12,21 @@ import java.time.LocalDate;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
+@FieldDefaults(level = AccessLevel.PRIVATE)
 public class Maintenance {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long idMaintenance;
+    Long idMaintenance;
 
     @Column(nullable = false)
-    private LocalDate dateDebut;
+    LocalDate dateDebut;
 
-    private LocalDate dateFin;
+    LocalDate dateFin;
 
     @Column(length = 500)
-    private String description;
+    String description;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    Vehicule vehicule;
 }

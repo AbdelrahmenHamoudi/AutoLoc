@@ -1,13 +1,13 @@
 package tn.esprit.abdelrahmenhamoudi4cce11.domain;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
+import lombok.experimental.FieldDefaults;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 @Table(name = "contrat")
@@ -15,18 +15,26 @@ import java.time.LocalDate;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
+@FieldDefaults(level = AccessLevel.PRIVATE)
 public class Contrat {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long idContrat;
+    Long idContrat;
 
     @Column(nullable = false)
-    private LocalDate dateSignature;
+    LocalDate dateSignature;
 
     @Column(nullable = false, precision = 10, scale = 2)
-    private BigDecimal montantTotal;
+    BigDecimal montantTotal;
 
     @Column(nullable = false)
-    private boolean valide;
+    boolean valide;
+
+    @OneToOne(fetch = FetchType.LAZY)
+    Reservation reservation;
+
+    @OneToMany(mappedBy = "contrat", cascade = CascadeType.ALL,
+            orphanRemoval = true, fetch = FetchType.LAZY)
+    Set<Paiement> paiements = new HashSet<>();
 }

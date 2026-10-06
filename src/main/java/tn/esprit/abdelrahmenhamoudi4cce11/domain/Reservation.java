@@ -1,10 +1,8 @@
 package tn.esprit.abdelrahmenhamoudi4cce11.domain;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
+import lombok.experimental.FieldDefaults;
 
 import java.time.LocalDate;
 
@@ -14,19 +12,29 @@ import java.time.LocalDate;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
+@FieldDefaults(level = AccessLevel.PRIVATE)
 public class Reservation {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long idReservation;
+    Long idReservation;
 
     @Column(nullable = false)
-    private LocalDate dateDebut;
+    LocalDate dateDebut;
 
     @Column(nullable = false)
-    private LocalDate dateFin;
+    LocalDate dateFin;
 
     @Enumerated(EnumType.STRING)
     @Column(nullable = false, length = 20)
-    private StatutReservation statut;
+    StatutReservation statut;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    Client client;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    Vehicule vehicule;
+
+    @OneToOne(mappedBy = "reservation", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    Contrat contrat;
 }

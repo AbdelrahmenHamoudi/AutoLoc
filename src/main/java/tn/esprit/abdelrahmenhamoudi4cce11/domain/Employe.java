@@ -1,10 +1,8 @@
 package tn.esprit.abdelrahmenhamoudi4cce11.domain;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
+import lombok.experimental.FieldDefaults;
 
 @Entity
 @Table(name = "employe")
@@ -12,19 +10,23 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
+@FieldDefaults(level = AccessLevel.PRIVATE)
 public class Employe {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long idEmploye;
+    Long idEmploye;
 
     @Column(nullable = false, length = 50)
-    private String nom;
+    String nom;
 
     @Column(nullable = false, length = 50)
-    private String prenom;
+    String prenom;
 
     @Enumerated(EnumType.STRING)
     @Column(nullable = false, length = 20)
-    private RoleEmploye role;
+    RoleEmploye role;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    Agence agence;
 }

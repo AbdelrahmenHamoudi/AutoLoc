@@ -1,10 +1,8 @@
 package tn.esprit.abdelrahmenhamoudi4cce11.domain;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
+import lombok.experimental.FieldDefaults;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
@@ -15,19 +13,23 @@ import java.time.LocalDate;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
+@FieldDefaults(level = AccessLevel.PRIVATE)
 public class Paiement {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long idPaiement;
+    Long idPaiement;
 
     @Column(nullable = false, precision = 10, scale = 2)
-    private BigDecimal montant;
+    BigDecimal montant;
 
     @Column(nullable = false)
-    private LocalDate datePaiement;
+    LocalDate datePaiement;
 
     @Enumerated(EnumType.STRING)
     @Column(nullable = false, length = 20)
-    private ModePaiement modePaiement;
+    ModePaiement modePaiement;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    Contrat contrat;
 }
