@@ -1,5 +1,6 @@
 package tn.esprit.abdelrahmenhamoudi4cce11.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -52,5 +53,6 @@ public class Client {
     LocalDate dateInscription;
 
     @OneToMany(mappedBy = "client", cascade = CascadeType.PERSIST, fetch = FetchType.LAZY)
+    @JsonIgnore
     Set<Reservation> reservations = new HashSet<>();
 }

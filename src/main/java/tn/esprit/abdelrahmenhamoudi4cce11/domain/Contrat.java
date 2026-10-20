@@ -1,5 +1,6 @@
 package tn.esprit.abdelrahmenhamoudi4cce11.domain;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -49,5 +50,6 @@ public class Contrat {
 
     @OneToMany(mappedBy = "contrat", cascade = CascadeType.ALL,
             orphanRemoval = true, fetch = FetchType.LAZY)
+    @JsonManagedReference("contrat-paiements")
     Set<Paiement> paiements = new HashSet<>();
 }

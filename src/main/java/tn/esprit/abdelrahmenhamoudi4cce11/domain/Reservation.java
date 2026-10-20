@@ -1,5 +1,6 @@
 package tn.esprit.abdelrahmenhamoudi4cce11.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -51,5 +52,6 @@ public class Reservation {
     Vehicule vehicule;
 
     @OneToOne(mappedBy = "reservation", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JsonIgnore
     Contrat contrat;
 }

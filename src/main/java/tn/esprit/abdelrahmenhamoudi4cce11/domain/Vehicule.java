@@ -1,5 +1,6 @@
 package tn.esprit.abdelrahmenhamoudi4cce11.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -66,5 +67,6 @@ public class Vehicule {
     Set<Equipement> equipements = new HashSet<>();
 
     @OneToMany(mappedBy = "vehicule", cascade = CascadeType.PERSIST, fetch = FetchType.LAZY)
+    @JsonIgnore
     Set<Maintenance> maintenances = new HashSet<>();
 }
